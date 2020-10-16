@@ -24,8 +24,9 @@ def cert_generator(certbook, cert_template, db_sheet, db, cert_id, header):
         folder = desktop + "\\AMC-CERTS\\"+ file
         if not os.path.exists(folder):
             os.makedirs(folder)
-        certbook.save(f"{folder}\\" + cert_id + "-Product Certification.xlsx")
+        certbook.save(f"{folder}\\" + cert_id + " - Product Certification.xlsx ")
         certbook.close()
+        os.startfile(f"{folder}\\" + cert_id + " - Product Certification.xlsx ")
         return certbook
     except:
         print("*** DID NOT WORK!!!! CLOSE THE OPENED ((PRODUCTION CERTIFICATION.XLSX)) SHEET FIRST ***")
