@@ -1,4 +1,5 @@
-
+import os
+from datetime import datetime
 
 def cert_generator(certbook, cert_template, db_sheet, db, cert_id, header):
     cell = [ ]
@@ -17,9 +18,16 @@ def cert_generator(certbook, cert_template, db_sheet, db, cert_id, header):
     cert_template[cell[5]] = header['condition']
 
     try:
-        certbook.save("Product Certification.xlsx")
+        desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+        timestamp = datetime.now()
+        file = str(timestamp.year) + '-' + str(timestamp.month) + '-' + str(timestamp.day)
+        folder = desktop + "\\AMC-CERTS\\"+ file
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        certbook.save(f"{folder}\\" + cert_id + "-Product Certification.xlsx")
+        certbook.close()
         return certbook
-    except (PermissionError):
+    except:
         print("*** DID NOT WORK!!!! CLOSE THE OPENED ((PRODUCTION CERTIFICATION.XLSX)) SHEET FIRST ***")
 
     
